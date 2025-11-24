@@ -1,0 +1,36 @@
+{% extends 'mantencion/base.html' %}
+{% block content %}
+  <header class="card buttons">
+    <div>
+      <a class="btn btn-resp" href="{% url 'create_responsable' %}">Crear Responsable</a>
+      <a class="btn btn-maq" href="{% url 'create_maquina' %}">Crear Maquina</a>
+      <a class="btn btn-mant" href="{% url 'create_mantencion' %}">Crear Mantención</a>
+    </div>
+  </header>
+
+  <!-- fixed logout button (top-right of viewport) -->
+  <div class="logout-fixed">
+    <a class="btn btn-plain" href="{% url 'logout' %}">Cerrar sesión</a>
+  </div>
+
+  <div class="card">
+    <h3>Últimas mantenciones</h3>
+    {% if mantenciones %}
+      {% for m in mantenciones %}
+        <div class="list-row" style="position:relative">
+          <form class="delete-form" method="post" action="{% url 'delete_mantencion' m.pk %}" onsubmit="return confirm('¿Eliminar esta mantención?');">
+            {% csrf_token %}
+            <button class="btn btn-small btn-delete" type="submit">Eliminar</button>
+          </form>
+
+          <strong>Máquina:</strong> {{ m.id_maquina.nombre }} &nbsp; | &nbsp;
+          <strong>Mantención:</strong> {{ m.descripcion|truncatechars:60 }} &nbsp; | &nbsp;
+          <strong>Responsable:</strong> {{ m.id_responsable.nombre }} {{ m.id_responsable.apellido }}
+          <div style="font-size:0.9em; color:#666">Fecha: {{ m.fecha }}</div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div>No hay mantenciones registradas.</div>
+    {% endif %}
+  </div>
+{% endblock %}

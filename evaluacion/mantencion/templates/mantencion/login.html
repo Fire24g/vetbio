@@ -1,0 +1,24 @@
+{% extends 'mantencion/base.html' %}
+{% block content %}
+  <div class="card" style="max-width:480px; margin:auto">
+    <h2>Login (usa credenciales de MariaDB)</h2>
+    {% if error %}
+      <div style="color:red">{{ error }}</div>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <div>
+        <label>Usuario:</label>
+        <input type="text" name="username" required>
+      </div>
+      <div>
+        <label>Contraseña:</label>
+        <input type="password" name="password" required>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-resp" type="submit">Entrar</button>
+        <a class="btn btn-plain" href="{% url 'login' %}">Limpiar</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

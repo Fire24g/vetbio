@@ -1,0 +1,14 @@
+{% extends 'mantencion/base.html' %}
+{% block content %}
+  <div class="card" style="max-width:640px; margin:auto">
+    <h2>Crear Responsable</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions">
+        <button class="btn btn-resp" type="submit">Guardar</button>
+        <a class="btn btn-plain" href="{% url 'main' %}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
